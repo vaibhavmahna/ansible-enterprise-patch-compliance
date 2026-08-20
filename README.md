@@ -1,6 +1,6 @@
 # 🛡️ Enterprise Linux Fleet Patching & CIS Compliance Framework
 
-[![CI](https://github.com/vaibhavmahna/ansible-enterprise-patch-compliance/actions/workflows/ci.yml/badge.svg)](https://github.com/vaibhavmahna/ansible-enterprise-patch-compliance/actions/workflows/ci.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/vaibhavmahna/ansible-enterprise-patch-compliance/ci.yml?style=for-the-badge&logo=githubactions&logoColor=white&label=CI)](https://github.com/vaibhavmahna/ansible-enterprise-patch-compliance/actions/workflows/ci.yml)
 [![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=for-the-badge&logo=ansible&logoColor=white)](https://ansible.com)
 [![AWX Tower](https://img.shields.io/badge/Red_Hat_AWX-000000?style=for-the-badge&logo=ansible&logoColor=white)](https://github.com/ansible/awx)
 [![RHEL](https://img.shields.io/badge/RHEL_8/9-EE0000?style=for-the-badge&logo=redhat&logoColor=white)](https://redhat.com)
