@@ -1,0 +1,16 @@
+all:
+  children:
+    canary_servers:
+      hosts:
+        canary-node-01.example.com:
+          ansible_host: 192.168.1.10
+    production_servers:
+      hosts:
+        prod-node-01.example.com:
+          ansible_host: 192.168.1.20
+        prod-node-02.example.com:
+          ansible_host: 192.168.1.21
+
+  vars:
+    ansible_user: sysadmin
+    ansible_ssh_private_key_file: ~/.ssh/id_rsa

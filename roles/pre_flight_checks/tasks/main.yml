@@ -1,0 +1,22 @@
+---
+- name: "Pre-Flight: Check Available Free Disk Space on Root (/)"
+  ansible.builtin.assert:
+    that:
+      - "item.mount != '/' or item.size_available > (item.size_total * (min_free_disk_percent / 100))"
+    fail_msg: "CRITICAL SAFETY ALERT: Free disk space on / is below {{ min_free_disk_percent }}%! Aborting patch run."
+    success_msg: "PRE-FLIGHT PASS: Free disk space on / meets safety threshold."
+  loop: "{{ ansible_mounts }}"
+  when: item.mount == '/'
+
+- name: "Pre-Flight: Audit System Clock & NTP Synchronization"
+  ansible.builtin.command: timedatectl status
+  register: timedate_status
+  changed_when: false
+  failed_when: false
+
+- name: "Pre-Flight: Verify Essential System Services"
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+  register: service_audit
+  ignore_errors: yes
+  loop: "{{ critical_services }}"

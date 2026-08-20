@@ -1,0 +1,27 @@
+---
+# ==============================================================================
+# MASTER ORCHESTRATION PLAYBOOK: Enterprise Linux Patching & CIS Hardening
+# ==============================================================================
+
+- name: "Phase 1: Pre-Flight Safety Checks & Health Validation"
+  hosts: all
+  become: yes
+  gather_facts: yes
+  tags: [always, pre_flight]
+  roles:
+    - pre_flight_checks
+
+- name: "Phase 2: Staged OS Patch Execution & Managed Reboot"
+  hosts: all
+  become: yes
+  serial: "{{ patch_serial_batch | default('25%') }}"
+  tags: [patching]
+  roles:
+    - patch_management
+
+- name: "Phase 3: CIS Level 1 & Level 2 Benchmark Security Hardening"
+  hosts: all
+  become: yes
+  tags: [cis_hardening, security]
+  roles:
+    - cis_hardening

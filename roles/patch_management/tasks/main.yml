@@ -1,0 +1,36 @@
+---
+- name: "Patching: Update Package Cache & Apply Security Updates (RedHat Family)"
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+    security: yes
+    update_cache: yes
+  when: ansible_os_family == "RedHat"
+
+- name: "Patching: Update Package Cache & Apply Upgrades (Debian Family)"
+  ansible.builtin.apt:
+    upgrade: dist
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: "Patching: Check Kernel Reboot Status (RedHat)"
+  ansible.builtin.command: needs-restarting -r
+  register: reboot_needed_rhel
+  failed_when: false
+  changed_when: false
+  when: ansible_os_family == "RedHat"
+
+- name: "Patching: Check Kernel Reboot Status (Debian)"
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: reboot_needed_debian
+  when: ansible_os_family == "Debian"
+
+- name: "Patching: Execute Managed Node Reboot if Kernel Updated"
+  ansible.builtin.reboot:
+    msg: "Automated Ansible Patch Compliance framework rebooting target node."
+    reboot_timeout: "{{ reboot_timeout_seconds }}"
+    test_command: uptime
+  when: >
+    (ansible_os_family == "RedHat" and reboot_needed_rhel.rc == 1) or
+    (ansible_os_family == "Debian" and reboot_needed_debian.stat.exists)

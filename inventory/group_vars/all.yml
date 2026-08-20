@@ -1,0 +1,16 @@
+---
+# Safety Thresholds & Global Settings
+min_free_disk_percent: 15
+patch_serial_batch: "25%"
+reboot_timeout_seconds: 600
+
+# CIS Benchmark Features Toggle
+cis_level1_enable: true
+cis_level2_enable: true
+cis_disable_root_ssh: true
+cis_enable_sysctl_hardening: true
+
+# Required Critical Services Audit List
+critical_services:
+  - sshd
+  - auditd
