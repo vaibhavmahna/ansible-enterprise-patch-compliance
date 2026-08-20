@@ -26,4 +26,4 @@ jobs:
 
       - name: Validate Ansible Playbook Syntax
         run: |
-          ansible-playbook site.yml --syntax-check
+          ansible-playbook site.yml -i inventory/hosts.example.yml --syntax-check
