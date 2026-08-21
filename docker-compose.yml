@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  fleet-dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: fleet-patch-compliance-dashboard
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://fleet_user:fleet_password@postgres:5432/fleet_db
+      - COLLECTION_INTERVAL_MINUTES=15
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: fleet-dashboard-db
+    environment:
+      - POSTGRES_USER=fleet_user
+      - POSTGRES_PASSWORD=fleet_password
+      - POSTGRES_DB=fleet_db
+    ports:
+      - "5432:5432"
+    restart: unless-stopped

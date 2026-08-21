@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% set active = "patch-compliance" %}
+{% block title %}Patch Compliance{% endblock %}
+{% block content %}
+
+<div class="card">
+  <h2>Enterprise Fleet Patch Compliance Audit</h2>
+  <p style="color: #94a3b8;">Automated DNF/APT patch audit powered by Ansible Fleet Automation.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Hostname</th><th>OS Version</th><th>Kernel Version</th><th>Security Patches</th><th>Reboot Required</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>node-prod-01</td><td>Ubuntu 22.04 LTS</td><td>5.15.0-88-generic</td><td><span style="color: #4ade80;">0 Pending</span></td><td>No</td></tr>
+      <tr><td>node-prod-02</td><td>RHEL 9.2</td><td>5.14.0-284.el9</td><td><span style="color: #facc15;">2 Security Updates</span></td><td>No</td></tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

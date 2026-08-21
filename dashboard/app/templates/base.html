@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Fleet Patch & Compliance Dashboard{% endblock %}</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --page-plane:     #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --gridline:       #2c2c2a;
+    --border:         rgba(255,255,255,0.10);
+    --series-blue:    #3987e5;
+    --status-good:    #4ade80;
+    --status-warning: #facc15;
+    --status-critical:#f87171;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page-plane);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 14px 24px;
+    background: var(--surface-1);
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 { font-size: 16px; margin: 0; font-weight: 600; color: #38bdf8; }
+  nav { display: flex; gap: 4px; }
+  nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  nav a.active { color: var(--text-primary); background: var(--gridline); font-weight: 600; }
+  main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+  .stat-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .stat-tile {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .stat-tile .value { font-size: 28px; font-weight: 600; }
+  .stat-tile .label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .stat-tile.good .value { color: var(--status-good); }
+  .stat-tile.warn .value { color: var(--status-warning); }
+  .stat-tile.critical .value { color: var(--status-critical); }
+  table { width: 100%; border-collapse: collapse; background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; }
+  th, td { text-align: left; padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--gridline); }
+  th { color: var(--text-muted); font-size: 11px; text-transform: uppercase; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🛡️ Fleet Patch & Compliance Dashboard</h1>
+  <nav>
+    <a href="/" class="{{ 'active' if active == 'overview' else '' }}">Overview</a>
+    <a href="/patch-compliance" class="{{ 'active' if active == 'patch-compliance' else '' }}">Patch &amp; Compliance</a>
+    <a href="/domain-security" class="{{ 'active' if active == 'domain-security' else '' }}">Security Audit</a>
+  </nav>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+</body>
+</html>

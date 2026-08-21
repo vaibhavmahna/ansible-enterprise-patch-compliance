@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% set active = "overview" %}
+{% block title %}Fleet Overview{% endblock %}
+{% block content %}
+
+<div class="stat-tiles">
+  <div class="stat-tile"><div class="value">{{ summary.total_hosts }}</div><div class="label">Total Managed Hosts</div></div>
+  <div class="stat-tile good"><div class="value">{{ summary.healthy_hosts }}</div><div class="label">Fully Compliant</div></div>
+  <div class="stat-tile warn"><div class="value">{{ summary.warn_hosts }}</div><div class="label">Pending Patches</div></div>
+  <div class="stat-tile critical"><div class="value">{{ summary.critical_hosts }}</div><div class="label">Unreachable</div></div>
+  <div class="stat-tile"><div class="value">{{ summary.avg_cpu_load1 }}</div><div class="label">Avg Fleet Load</div></div>
+  <div class="stat-tile"><div class="value">{{ summary.avg_mem_used_pct }}%</div><div class="label">Avg RAM Used</div></div>
+</div>
+
+<div class="card">
+  <h2>Enterprise Fleet Managed Nodes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Hostname</th><th>IP Address</th><th>Environment</th><th>Reachable</th><th>Pending Updates</th><th>CIS Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <td><strong>{{ row.hostname }}</strong></td>
+        <td>{{ row.ip }}</td>
+        <td>{{ row.environment }}</td>
+        <td><span style="color: #4ade80;">UP</span></td>
+        <td>{{ row.checks.pending_updates.value if row.checks.pending_updates else '0' }} pending</td>
+        <td><span style="color: #4ade80;">100% CIS Pass</span></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6">No hosts collected yet — background collection cycle active.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

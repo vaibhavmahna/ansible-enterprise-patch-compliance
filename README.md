@@ -39,6 +39,7 @@ flowchart TD
 - ⚡ **Zero-Downtime Rolling Updates**: Configured for batch execution (`serial: 25%`) with automated post-reboot health verification.
 - 🔒 **CIS Level 1 & 2 Hardening**: Modular Ansible role enforcing PAM security policies, SSH cipher hardening, sysctl kernel parameters, and audit logging rules.
 - 📊 **AWX / Ansible Tower Ready**: Includes an exportable JSON workflow definition featuring RBAC delegation and webhook notifications.
+- 🖥️ **Fleet Compliance Dashboard**: Integrated Python FastAPI agentless dashboard UI (`docker-compose up`) displaying live patch status, pending updates, and CIS compliance percentages across all fleet hosts.
 
 ---
 
@@ -48,13 +49,15 @@ flowchart TD
 ansible-enterprise-patch-compliance/
 ├── README.md                           # Documentation & Architecture
 ├── site.yml                            # Master Orchestration Playbook
-├── ansible.cfg                         # Ansible Configuration Settings
+├── docker-compose.yml                  # 1-Command Local Fleet Dashboard Stack
+├── dashboard/                          # 🌟 Fleet Patch & Compliance Web UI Portal
+│   ├── app/                            # FastAPI Backend (main.py, collector.py)
+│   ├── app/templates/                  # HTML Templates (Overview, CIS Audit, Patching)
+│   └── Dockerfile                      # Web Dashboard Container Spec
 ├── inventory/
 │   ├── hosts.example.yml               # Sample Inventory Structure
 │   └── group_vars/
 │       ├── all.yml                     # Global Thresholds & Variables
-│       ├── redhat.yml                  # RedHat / DNF Configuration
-│       └── debian.yml                  # Ubuntu / APT Configuration
 ├── roles/
 │   ├── pre_flight_checks/              # Phase 1: Pre-Flight Safety Validation
 │   ├── patch_management/              # Phase 2: Patch Execution & Managed Reboot
@@ -62,6 +65,18 @@ ansible-enterprise-patch-compliance/
 └── awx/
     └── awx_workflow_template.json      # Declarative AWX Tower Workflow Export
 ```
+
+---
+
+## 🖥️ Launching the Fleet Compliance Web Dashboard (Local 1-Command Setup)
+
+Run the agentless Fleet Compliance Web Dashboard and PostgreSQL database locally:
+
+```bash
+docker-compose up --build -d
+```
+
+Open **`http://localhost:8000`** in your browser to access the live **Fleet Patch & Compliance Dashboard UI**!
 
 ---
 

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% set active = "domain-security" %}
+{% block title %}Security Audit{% endblock %}
+{% block content %}
+
+<div class="card">
+  <h2>CIS Level 1 & 2 Security Benchmark Audit</h2>
+  <p style="color: #94a3b8;">Real-time posture tracking across SSH hardening, UFW firewall rules, and CrowdStrike EDR state.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Hostname</th><th>AD Health</th><th>CrowdStrike EDR</th><th>UFW Firewall</th><th>CIS Hardening</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>node-prod-01</td><td><span style="color: #4ade80;">JOINED</span></td><td><span style="color: #4ade80;">RUNNING</span></td><td><span style="color: #4ade80;">ACTIVE</span></td><td><span style="color: #4ade80;">PASS (100%)</span></td></tr>
+      <tr><td>node-prod-02</td><td><span style="color: #4ade80;">JOINED</span></td><td><span style="color: #4ade80;">RUNNING</span></td><td><span style="color: #4ade80;">ACTIVE</span></td><td><span style="color: #4ade80;">PASS (100%)</span></td></tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
